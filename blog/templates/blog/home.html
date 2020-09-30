@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style type="text/css">
+	@media (max-width: 768px) {
+		.right-column{
+			margin-left: 0px;
+		}
+	}
+	@media (min-width: 768px) {
+		.right-column{
+			margin-left: 20px;
+		}
+	}
+	.blog-post-container{
+		margin-bottom: 20px;
+		width: 100%;
+	}
+
+	.left-column{
+		padding:0px;
+	}
+	.right-column{
+		padding:0px;
+	}
+	
+</style>
+
+<div class="container">
+	<h3>
+		{% if request.user.is_authenticated %}
+			<p>Hello, {{request.user.username}}</p>
+		{% endif %}
+	</h3>
+
+</div>
+
+
+
+<div class="container">
+		<!-- blog feed -->
+		<div class="row">
+			<div class="left-column col-lg-8 offset-lg-0">
+
+				<!-- Blog posts-->
+
+				{% for post in blog_posts %}
+					<div class="blog-post-container">
+						{% include 'blog/snippets/blog_post_snippet.html' with blog_post=post %}
+					</div>
+				{% endfor %}
+
+				<!-- End Blog posts-->
+
+
+			</div>
+			<!-- end blog feed -->
+
+
+
+			<!-- Right 'create post' column  -->
+			<div class="right-column col-lg-3">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<img src="{% static 'blog_icon.jpg' %}" width="72" height="72">
+						<p class="lead">I have built a simple blog having user registration and blog CRUD functionality with API feature. Do post some useful articles here.</p>
+						<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
+					</div>
+				</div>
+
+			</div>
+			<!-- end Right 'create post' column  -->
+		</div>
+
+</div>
+
+{% endblock content %}

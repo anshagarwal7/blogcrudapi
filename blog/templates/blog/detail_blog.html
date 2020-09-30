@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<style type="text/css">
+
+	.container{
+		padding: 20px;
+	}
+
+	#img{
+		max-width:100%;
+		height:auto;
+		border-radius:5px;
+	}
+</style>
+
+
+<div class="container">
+		<!-- Blog post -->
+		<div class="panel panel-default">
+			<img src="{{blog_post.image.url}}" id=img>
+			<div class="panel-body">
+				<h2>{{blog_post.title}}</h2>
+				<p>{{blog_post.body|linebreaksbr}}</p>
+				<p>
+					{% if blog_post.author == request.user %}
+						<a href="{% url 'blog:edit' blog_post.slug %}" class="btn btn-primary">Update</a>
+					{% endif %}
+
+					{% if blog_post.author == request.user %}
+						<a href="{% url 'blog:delete' blog_post.slug %}" class="btn btn-primary">Delete</a>
+					{% endif %}
+				</p>
+
+			</div>
+			<div class="panel-footer text-muted">
+				Updated on {{blog_post.date_updated}} by {{blog_post.author}}
+			</div>
+		</div>
+		<!-- end Blog post -->
+
+	</div>
+</div>
+
+{% endblock content %}

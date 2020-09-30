@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+
+{% block content %}
+
+
+
+<div class = "container">
+  <h1>Update Account details</h1>
+  <form method ="post">
+    {% csrf_token %}
+    {% bootstrap_form account_form %}
+
+    {% if success_message %}
+      <p style="color:green; text-align: center;">{{success_message}}</p>
+    {% endif  %}
+    <input type ="submit" class ="btn btn-default" value="Submit">
+
+  </form>
+
+</div>
+
+
+
+<div class="container" style="width:50%">
+      <h3>Blog posts:</h3>
+      {% if blog_posts %}
+      <ul>
+        {% for post in blog_posts %}
+          <a href="{% url 'blog:detail' post.slug %}" >
+            <li class="list-group-item">{{post}}</li>
+          </a>
+        {% endfor %}
+      </ul>
+      {% else %}
+        <p>You have no blog posts. Create a post <a href="{% url 'blog:create' %}">here</a>.</p>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}
